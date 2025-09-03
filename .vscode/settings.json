@@ -1,0 +1,18 @@
+{
+    "cSpell.words": [
+        "Artigo",
+        "Clicou",
+        "Curso",
+        "Documentação",
+        "Pressable",
+        "Projeto",
+        "Projetos",
+        "Rocketseat",
+        "Vídeo"
+    ],
+    "path-intellisense.autoSlashAfterDirectory": false,
+    "path-intellisense.autoTriggerNextSuggestion": false,
+    "path-intellisense.extensionOnImport": true,
+    "path-intellisense.ignoreTsConfigBaseUrl": true,
+    "path-intellisense.showHiddenFiles": false
+}
