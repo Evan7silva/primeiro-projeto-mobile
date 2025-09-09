@@ -25,5 +25,4 @@ async function save(newLinks: LinkStorage) {
     throw error;
   }
 }
-
-export const LinkStorage = { get, save };
+export const linkStorage = { get, save };
