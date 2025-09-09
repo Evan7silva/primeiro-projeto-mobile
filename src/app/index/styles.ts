@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: colors.gray[600],
   },
-  linksContente: {
+  linksContent: {
     gap: 20,
     padding: 24,
     paddingBottom: 100,

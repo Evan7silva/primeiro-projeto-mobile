@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Image, View, TouchableOpacity, FlatList, Modal, Text } from "react-native";
+import { useState, useEffect } from "react";
+import { Image, View, TouchableOpacity, FlatList, Modal, Text, Alert } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 
@@ -10,9 +10,25 @@ import { Link } from "@/components/link"
 import { Option } from "@/components/option";
 import { Categories } from "@/components/categories";
 import { categories } from "@/utils/categories";
+import { linkStorage, LinkStorage } from "@/storage/link-storage";
 
 export default function Index() {
+  const [links, setLinks] = useState<LinkStorage[]>([]);
   const [category, setCategory] = useState(categories[0].name);
+
+  async function getLinks() {
+    try {
+      const response = await linkStorage.get();
+      setLinks(response);
+    } catch (error) {
+      Alert.alert("Erro", "Não foi possível listar os links");
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getLinks();
+  }, [category]);
 
   return (
     <View style={styles.container}>
@@ -22,17 +38,18 @@ export default function Index() {
           <MaterialIcons name="add" size={32} color={colors.green[300]} />
         </TouchableOpacity>
       </View>
-      <Categories onChange={setCategory} selected={category}/>
+      <Categories onChange={setCategory} selected={category} />
       <FlatList
-        data={["1", "2", "3"]}
-        keyExtractor={(item) => item}
-        renderItem={() => (<Link
-          name="Rocketseat"
-          url="https://www.rocketseat.com.br/"
-          onDetails={() => console.log("Clicou!")} />
+        data={links}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <Link
+            name={item.name}
+            url={item.url}
+            onDetails={() => console.log("Clicou!")} />
         )}
         style={styles.links}
-        contentContainerStyle={styles.linksContente}
+        contentContainerStyle={styles.linksContent}
         showsHorizontalScrollIndicator={false}
       />
       <Modal transparent visible={false} animationType="slide">

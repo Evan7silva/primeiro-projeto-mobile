@@ -33,14 +33,11 @@ export default function Add() {
                 url,
                 category
             });
-            const data = await linkStorage.get();
-            console.log(data);
         } catch (error) {
             Alert.alert("Erro", "Não foi possível salvar o link");
             console.log(error);
         }
     }
-
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -53,7 +50,7 @@ export default function Add() {
             <Categories onChange={setCategory} selected={category} />
             <View style={styles.form}>
                 <Input placeholder="Nome" onChangeText={setName} autoCorrect={false} />
-                <Input placeholder="URL" onChangeText={setUrl} autoCorrect={false} autoCapitalize='none'/>
+                <Input placeholder="URL" onChangeText={setUrl} autoCorrect={false} autoCapitalize='none' />
                 <Button title="Adicionar" onPress={handleAdd} />
             </View>
         </View>
