@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { Image, View, TouchableOpacity, FlatList, Modal, Text, Alert } from "react-native";
+import { Image, View, TouchableOpacity, FlatList, Modal, Text, Alert, Linking } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { router, useFocusEffect } from "expo-router";
 
@@ -26,6 +26,16 @@ export default function Index() {
       setLinks(filteredLinks);
     } catch (error) {
       Alert.alert("Erro", "Não foi possível listar os links");
+      console.log(error);
+    }
+  }
+
+  async function handleOpenLink() {
+    try {
+      await Linking.openURL(linkDetails.url);
+      setShowModal(false);
+    }catch(error){
+      Alert.alert("Link", "Não foi possível abrir o link");
       console.log(error);
     }
   }
@@ -103,7 +113,7 @@ export default function Index() {
                   variant="secondary"
                   onPress={handleRemove}
                 />
-                <Option name="Abrir" icon="language" />
+                <Option name="Abrir" icon="language" onPress={handleOpenLink}/>
               </View>
             </View>
           </View>
