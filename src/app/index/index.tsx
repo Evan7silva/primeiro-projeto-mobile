@@ -30,6 +30,25 @@ export default function Index() {
     }
   }
 
+  async function linkRemove() {
+    try {
+      await linkStorage.remove(linkDetails.id);
+      getLinks();
+      setShowModal(false);
+    } catch (error) {
+      Alert.alert("Erro", "Não foi possível remover o link");
+      console.log(error);
+    }
+  }
+
+  function handleRemove() {
+    Alert.alert("Remover", "Deseja realmente remover o link?", [
+      { style: "cancel", text: "Não" },
+      { text: "Sim", onPress: linkRemove }
+    ])
+
+  }
+
   function handleDetails(selectedLink: LinkStorage) {
     setShowModal(true);
     setLinkDetails(selectedLink);
@@ -78,7 +97,12 @@ export default function Index() {
               <Text style={styles.modalLinkName}>{linkDetails.name}</Text>
               <Text style={styles.modalUrl}>{linkDetails.url}</Text>
               <View style={styles.moldaFooter}>
-                <Option name="Excluir" icon="delete" variant="secondary" />
+                <Option
+                  name="Excluir"
+                  icon="delete"
+                  variant="secondary"
+                  onPress={handleRemove}
+                />
                 <Option name="Abrir" icon="language" />
               </View>
             </View>
